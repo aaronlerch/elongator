@@ -17,17 +17,17 @@ end
 
 helpers do
   def parse_urls
-    url_list = []
+    urls = {}
     for param in (request.query_string || '').split("&")
       values = param.split("=")
       next if values[0].nil? or values[1].nil?
       url = values[0].downcase
       next if url != 'url'
 
-      url_list << CGI::unescape(values[1].strip)
+      urls[CGI::unescape(values[1].strip)] = nil
     end
 
-    return url_list
+    return urls
   end
 
   def resolve_url(url)
@@ -47,17 +47,20 @@ get '/expand' do
   urls = parse_urls
   return if urls.empty?
 
-  resolved_urls = REDIS.mget(urls.map { |url| "url:#{url}" })
+  keys = urls.map { |key,value| "url:#{key}" }
+  resolved_urls = REDIS.mget *keys  # <- mget takes params, not an array
   REDIS.multi do
-    resolved_urls.each_with_index do |url, index|
-      if url.nil?
-        resolved = resolve_url(urls[index])
-        resolved_urls[index] = resolved
-        REDIS.set "url:#{urls[index]}", resolved
+    urls.each_with_index do |pair, index|
+      if resolved_urls[index].nil?
+        resolved = resolve_url(pair[0])
+        urls[pair[0]] = resolved
+        REDIS.set "url:#{pair[0]}", resolved
+      else
+        urls[pair[0]] = resolved_urls[index]
       end
     end
   end
 
   content_type :json
-  resolved_urls.to_json
+  urls.to_json
 end

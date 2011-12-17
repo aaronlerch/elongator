@@ -11,3 +11,7 @@ than once. For new URLs, the elongator issues a HEAD request and looks
 for a 301 redirect. This is currently a naive implementation in that it
 does not pay attention to caching rules, it simply permanently stores
 the redirected URL.
+
+## Random Notes
+
+Color scheme: http://colorschemedesigner.com/#4461zJLbv.q6s

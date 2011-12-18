@@ -3,7 +3,7 @@ require 'slim'
 require 'redis'
 require 'json'
 require 'rest-client'
-require 'CGI'
+require 'cgi'
 
 configure :development do
   uri = URI.parse('redis://localhost:6379')

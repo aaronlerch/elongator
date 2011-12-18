@@ -5,23 +5,42 @@ html
     css:
       body {
         font-family: "HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif;
-        color: #010526;
-        background-color: #eee;
+        background-color: #fff;
         padding-top: 60px;
       }
       div#container {
         text-align: center;
+        width: 960px;
+        margin: auto;
       }
       h1 small {
         font-size: 0.4em;
         font-style: italic;
       }
+      .upgrade {
+        margin: auto;
+        width: 400px;
+      }
+      .upgrade p {
+        font-size: 26px;
+      }
+      div#extension {
+        padding-top: 100px;
+      }
   body
     #container
-      h1
-        The Uniform Resource Locator Elongator
-        br
-        small (we expand short URLs for you)
+      img src="/title.png"
       #extension
-        a href="#"
-          img src="/chrome-ext.png"
+        - if !browser.nil?
+          a href="#"
+            img src="/#{browser}-ext.png"
+        - else
+          .upgrade
+            p
+              | Browser extensions are available for 
+              a href="https://www.google.com/chrome" Chrome
+              | , 
+              a href="http://www.mozilla.org/firefox" Firefox
+              | , or 
+              a href="http://www.apple.com/safari/" Safari
+              | - consider upgrading your browser!

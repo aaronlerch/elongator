@@ -37,6 +37,12 @@ helpers do
     end
     return resolved_url
   end
+
+  def browser
+    return "chrome" if request.user_agent =~ /chrome/i
+    return "firefox" if request.user_agent =~ /firefox/i
+    return "safari" if request.user_agent =~ /safari/i
+  end
 end
 
 get '/' do

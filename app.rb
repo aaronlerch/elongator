@@ -3,7 +3,7 @@ require 'slim'
 require 'json'
 require 'base64'
 
-MAX_URL_LENGTH = 1900
+MAX_URL_LENGTH = 1500
 LETTERS = [('a'..'z'),('A'..'Z')].map{|i| i.to_a}.flatten.freeze
 
 disable :static

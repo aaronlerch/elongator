@@ -25,6 +25,11 @@ h1 small {
 .lengthen p {
   font-size: 26px;
 }
+
+#result {
+  display none;
+}
+
 input {
   margin: 0em;
   font: -webkit-small-control;

@@ -11,7 +11,7 @@ get '/elongate' do
   content_type 'application/json'
   {
     :original_url => params[:url],
-    :elongated_url => Base64.strict_encode64(params[:url])
+    :elongated_url => url("/#{Base64.strict_encode64(params[:url])}")
   }.to_json
 end
 

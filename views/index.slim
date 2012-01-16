@@ -9,6 +9,24 @@ html
         $p = escape($.trim($('#url').val()));
         if ($p === '') { return false; }
         // TODO: get the elongated URL via ajax
+        var request = $.ajax({
+          type: 'GET',
+          url: '/elongate',
+          data: 'url=' + $p,
+          dataType: 'json'
+        });
+
+        request.done(function(msg) {
+          $('#elongated_url').attr('href', msg.elongated_url);
+          $('#elongated_url').text(msg.elongated_url);
+          $('#result').show();
+        });
+
+        request.fail(function(jqXHR, textStatus) {
+          alert('We failed to elongate your URL... sorry! Try again?');
+        });
+
+
         return false;
       }
 
@@ -32,3 +50,5 @@ html
         form#elongate-form
           input#url type='text' placeholder='Enter a URL to elongate'
           a#elongate.button href='#' E l o n g a t e
+        #result
+          a#elongated_url

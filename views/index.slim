@@ -48,8 +48,12 @@ html
       img src="/title.png"
       .lengthen
         form#elongate-form
-          input#url type='text' placeholder='Enter a URL to elongate'
-          a#elongate.button href='#' E l o n g a t e
+          table
+            tr
+              td
+                input#url type='text' placeholder='Enter a URL to elongate'
+              td
+                a#elongate.button href='#' E l o n g a t e
         #result-holder
           #result
             h2 Congratulations, your URL has been elongated!

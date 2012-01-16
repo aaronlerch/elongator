@@ -27,7 +27,15 @@ h1 small {
 }
 
 #result {
-  display none;
+  display: none;
+}
+
+#result-holder {
+  min-height: 300px;
+}
+
+#elongated_url {
+  word-wrap: break-word;
 }
 
 input {

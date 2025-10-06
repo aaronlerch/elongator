@@ -2,6 +2,7 @@ require 'sinatra'
 require 'slim'
 require 'json'
 require 'base64'
+require 'uri'
 
 MAX_URL_LENGTH = 1000
 LETTERS = [('a'..'z'),('A'..'Z')].map{|i| i.to_a}.flatten.freeze
@@ -32,7 +33,7 @@ get '/elongate' do
   content_type 'application/json'
 
   encoded_url = Base64.strict_encode64(params[:url]) + "|"
-  encoded_url = URI.escape(encoded_url, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+  encoded_url = URI::Parser.new.escape(encoded_url, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
   random_length = MAX_URL_LENGTH - encoded_url.length
   random_filler =  (0..random_length).map{ LETTERS[rand(LETTERS.length)] }.join
   {
